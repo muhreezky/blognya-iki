@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use Filament\Navigation\MenuItem;
 use Illuminate\Support\ServiceProvider;
-
+use Session;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +20,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // dd($lang);
+        filament()->serving(function () {
+            $lang = Session::get('lang', 'en');
+            filament()->registerUserMenuItems([
+                MenuItem::make()
+                    ->label('Language / Bahasa')
+                    ->icon('heroicon-s-language')
+                    ->url(route('set-lang', ['lang' => $lang === 'en' ? 'id' : 'en']))
+            ]);
+        });
     }
 }

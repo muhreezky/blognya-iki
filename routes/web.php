@@ -28,3 +28,9 @@ Route::get('storage/{name}', function ($name) {
         'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
     ]);
 })->where('name', '.*');
+
+Route::get('/locale/{lang}', function ($lang) {
+    Session::put('lang', $lang);
+    app()->setLocale($lang);
+    return redirect()->back();
+})->name('set-lang');
