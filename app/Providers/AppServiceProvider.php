@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Navigation\MenuItem;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Session;
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // dd($lang);
+        Model::unguard();
         filament()->serving(function () {
             $lang = Session::get('lang', 'en');
             filament()->registerUserMenuItems([

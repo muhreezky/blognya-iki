@@ -13,15 +13,6 @@ class EditProfile extends \Filament\Pages\Auth\EditProfile
 
     protected static string $view = 'filament.pages.profile.edit-profile';
 
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        unset($data['old_password']);
-        if ($data['password'] === null) {
-            unset($data['password']);
-        }
-        return $data;
-    }
-
     protected function mutateFormDataBeforeFill(array $data): array
     {
         $data['confirmed'] = false;
@@ -58,6 +49,72 @@ class EditProfile extends \Filament\Pages\Auth\EditProfile
                     }),
                 ]),
             ]),
+            Components\Tabs::make()->schema([
+                Components\Tabs\Tab::make('Pendidikan')
+                    ->schema([
+                        Components\Repeater::make('educationHistories')
+                            ->required()
+                            ->relationship()->label('Riwayat Pendidikan')
+                            ->schema([
+                                Components\TextInput::make('institution')
+                                    ->label('Nama Institusi')
+                                    ->required()->maxLength(255),
+                                Components\TextInput::make('major')->required()->maxLength(255)
+                                    ->label('Jurusan'),
+                                Components\TextInput::make('degree')->required()->maxLength(255)
+                                    ->label('Gelar / Jenjang Pendidikan'),
+                                Components\Textarea::make('description')
+                                    ->required()->maxLength(400),
+                                Components\Fieldset::make()
+                                    ->schema([
+                                        Components\Select::make('start_month')->required()->options(
+                                            function() {
+                                                $arr = [];
+                                                for($i = 0; $i < 12; $i++) {
+                                                    $arr[(string) $i] = __("times/months.{$i}");
+                                                }
+                                                return $arr;
+                                            }
+                                        )->native(false),
+                                        Components\TextInput::make('start_year')->required()
+                                            ->numeric()->default(now()->year)
+                                    ]),
+                                Components\Fieldset::make()
+                                    ->schema([
+                                        Components\Select::make('end_month')->required()->options(
+                                            function() {
+                                                $arr = [];
+                                                for($i = 0; $i < 12; $i++) {
+                                                    $arr[(string) $i] = __("times/months.{$i}");
+                                                }
+                                                return $arr;
+                                            }
+                                        )->native(false)
+                                        ->rules([
+                                            fn ($get) => function ($attribute, $value, $fail) use ($get) {
+                                                $month = (int) $get('start_month');
+                                                $startYear = (int) $get('start_year');
+                                                $year = (int) $get('end_year');
+                                                if (($month > $value) && ($startYear >= $year)) {
+                                                    $fail('You can\'t set earlier than starting month and date');
+                                                }
+                                            }
+                                        ]),
+                                        Components\TextInput::make('end_year')
+                                            ->required()->label('End year (or expected)')
+                                            ->numeric()->default(now()->year)
+                                            ->rules([
+                                                fn ($get) => function ($attribute, $value, $fail) use ($get) {
+                                                    $year = $get('start_year');
+                                                    if ($year > $value) {
+                                                        $fail('End year can\'t be earlier than start year');
+                                                    }
+                                                }
+                                            ])
+                                    ]),
+                            ])
+                    ])
+            ])
         ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('profile_pics', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
+            $table->foreignIdFor(User::class);
+            $table->string('file');
+            $table->string('original_name');
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('profile_pics');
     }
 };

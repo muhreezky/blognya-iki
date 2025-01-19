@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@php
+    $links = [
+        ['label' => 'Home', 'href' => 'home'],
+        ['label' => 'Blogs', 'href' => 'blogs']
+    ];
+@endphp
 
 <head>
     <meta charset="utf-8">
@@ -29,15 +35,19 @@
                 </a>
             </div>
             <div class="flex gap-3">
-                <ul>
-                    <li>
-                        <x-filament::button tag="a" href="/admin">Login</x-filament::button>
-                    </li>
+                <ul class="flex gap-3">
+                    @foreach ($links as $link)
+                        <li>
+                            <x-filament::button tag="a" href="{{ route($link['href']) }}" outlined>
+                                {{ $link['label'] }}
+                            </x-filament::button>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </nav>
     </header>
-    <main>
+    <main class="p-4">
         {{ $slot }}
     </main>
 

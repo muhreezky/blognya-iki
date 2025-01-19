@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::name('home')->get('/', HomePage::class);
 
 Route::get('storage/{name}', function ($name) {
@@ -36,3 +33,5 @@ Route::get('/locale/{lang}', function ($lang) {
     app()->setLocale($lang);
     return redirect()->back();
 })->name('set-lang');
+
+Route::name('blogs')->get('/blogs');
