@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="fi min-h-screen">
 @php
     $links = [
         ['label' => 'Home', 'href' => 'home'],
-        ['label' => 'Blogs', 'href' => 'blogs']
+        ['label' => 'Portfolio', 'href' => 'portfolio'],
+        ['label' => 'Blogs', 'href' => 'blogs'],
     ];
+    $currentUrl = request()->url();
 @endphp
 
 <head>
@@ -38,7 +40,11 @@
                 <ul class="flex gap-3">
                     @foreach ($links as $link)
                         <li>
-                            <x-filament::button tag="a" href="{{ route($link['href']) }}" outlined>
+                            <x-filament::button
+                                tag="a"
+                                href="{{ route($link['href']) }}"
+                                :outlined="route($link['href']) !== $currentUrl"
+                            >
                                 {{ $link['label'] }}
                             </x-filament::button>
                         </li>

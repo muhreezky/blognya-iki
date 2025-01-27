@@ -22,7 +22,7 @@ class EducationHistory extends Model
 
     protected $appends = [
         'start',
-        'end'
+        'end',
     ];
 
     protected function start(): Attribute
@@ -36,20 +36,6 @@ class EducationHistory extends Model
     {
         return Attribute::make(
             fn ($value, $attributes) => "{$attributes['end_month']}, {$attributes['end_year']}"
-        );
-    }
-
-    protected function startMonth()
-    {
-        return Attribute::make(
-            fn ($value) => $this->months[$value]
-        );
-    }
-
-    protected function endMonth()
-    {
-        return Attribute::make(
-            fn ($value) => $this->months[$value]
         );
     }
 

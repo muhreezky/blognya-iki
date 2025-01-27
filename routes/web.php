@@ -1,6 +1,8 @@
 <?php
 
+use App\Livewire\BlogsPage;
 use App\Livewire\HomePage;
+use App\Livewire\PortfolioPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +36,5 @@ Route::get('/locale/{lang}', function ($lang) {
     return redirect()->back();
 })->name('set-lang');
 
-Route::name('blogs')->get('/blogs');
+Route::name('blogs')->get('/blogs', BlogsPage::class);
+Route::name('portfolio')->get('/portfolio', PortfolioPage::class);
