@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Helpers\SiteConfig;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -22,10 +23,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $config = SiteConfig::get();
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName($config['title'])
             ->profile(\App\Filament\Pages\Profile\EditProfile::class, false)
             ->login()
             ->colors([
