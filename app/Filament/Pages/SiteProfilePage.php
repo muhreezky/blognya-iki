@@ -16,7 +16,7 @@ use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 class SiteProfilePage extends Page implements HasForms
 {
     use InteractsWithForms, InteractsWithFormActions;
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-cog';
 
     protected static string $view = 'filament.pages.site-profile-page';
     protected static ?string $navigationGroup = 'Website';

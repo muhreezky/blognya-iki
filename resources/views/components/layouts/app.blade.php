@@ -3,7 +3,6 @@
 @php
     use App\Helpers\SiteConfig;
     $config = SiteConfig::get();
-    // dd($config['title']);
     $links = [
         ['label' => 'Home', 'href' => 'home'],
         ['label' => 'Portfolio', 'href' => 'portfolio'],
@@ -37,28 +36,6 @@
     @livewire('notifications')
     <header>
         @livewire('navbar')
-        {{-- <nav class="flex justify-between p-4 py-3">
-            <div>
-                <a href="{{ route('home') }}" class="text-2xl font-bold hover:cursor-pointer">
-                    {{ $title }}
-                </a>
-            </div>
-            <div class="flex gap-3">
-                <ul class="flex gap-3">
-                    @foreach ($links as $link)
-                        <li>
-                            <a
-                                tag="a"
-                                class="fi-sidebar-item-button outline-none"
-                                href="{{ route($link['href']) }}"
-                            >
-                                {{ $link['label'] }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </nav> --}}
     </header>
     <main class="p-4">
         {{ $slot }}
