@@ -36,7 +36,8 @@
 <body class="antialiased">
     @livewire('notifications')
     <header>
-        <nav class="flex justify-between p-4 py-3">
+        @livewire('navbar')
+        {{-- <nav class="flex justify-between p-4 py-3">
             <div>
                 <a href="{{ route('home') }}" class="text-2xl font-bold hover:cursor-pointer">
                     {{ $title }}
@@ -57,7 +58,7 @@
                     @endforeach
                 </ul>
             </div>
-        </nav>
+        </nav> --}}
     </header>
     <main class="p-4">
         {{ $slot }}
