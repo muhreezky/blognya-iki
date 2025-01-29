@@ -13,7 +13,7 @@ class SiteConfig {
             'title' => config('app.name'),
             'tagline' => '',
             'description' => '',
-            'icon' => public_path('favicon.ico'),
+            'icon' => 'favicon.ico',
         ];
         if (!$exists) {
             File::put($path, Crypt::encryptString(json_encode($data)));

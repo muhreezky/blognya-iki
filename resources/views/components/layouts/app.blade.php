@@ -19,7 +19,7 @@
     <meta name="application-name" content="{{ config('app.name') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ $config['icon'] }}" >
+    <link rel="icon" href="{{ url($config['icon']) }}" >
 
     <title>{{ $title }}</title>
 
@@ -46,13 +46,13 @@
                 <ul class="flex gap-3">
                     @foreach ($links as $link)
                         <li>
-                            <x-filament::button
+                            <a
                                 tag="a"
+                                class="fi-sidebar-item-button outline-none"
                                 href="{{ route($link['href']) }}"
-                                :outlined="route($link['href']) !== $currentUrl"
                             >
                                 {{ $link['label'] }}
-                            </x-filament::button>
+                            </a>
                         </li>
                     @endforeach
                 </ul>

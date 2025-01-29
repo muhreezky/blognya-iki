@@ -19,7 +19,6 @@ class SiteProfilePage extends Page implements HasForms
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.site-profile-page';
-    protected static ?string $navigationLabel = 'Profile';
     protected static ?string $navigationGroup = 'Website';
 
     public array $data = [];
@@ -27,6 +26,11 @@ class SiteProfilePage extends Page implements HasForms
     public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
     {
         return __('pages/site-profile-page.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('pages/site-profile-page.navlabel');
     }
 
     public function getForms(): array
@@ -57,12 +61,13 @@ class SiteProfilePage extends Page implements HasForms
 
     public function save()
     {
-        $path = resource_path('metadata.json');
+        // $path = resource_path('metadata.json');
         $state = $this->form->getState();
         // dd($state);
         // File::put($path, json_encode($state));
         SiteConfig::save($state);
         Notification::make()->success()->title('Success')
             ->body('Site Configuration Changed')->send();
+        // redirect(request()->url());
     }
 }

@@ -1,4 +1,5 @@
 <?php
     return [
-        'title' => 'Site Profile',
+        'title' => 'Site Configuration',
+        'navlabel' => 'Configuration',
     ];
