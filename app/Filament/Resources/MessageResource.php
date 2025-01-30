@@ -7,11 +7,13 @@ use App\Filament\Resources\MessageResource\RelationManagers;
 use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists;
 
 class MessageResource extends Resource
 {
@@ -32,8 +34,6 @@ class MessageResource extends Resource
                 Forms\Components\Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('opened')
-                    ->required(),
             ]);
     }
 
@@ -42,7 +42,9 @@ class MessageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable()->formatStateUsing(fn ($state) => "<a href='mailto:$state'>$state</a>"),
+                    ->searchable()->formatStateUsing(
+                        fn ($state) => "<a href='mailto:$state'>$state</a>"
+                    )->html(),
                 Tables\Columns\TextColumn::make('subject')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('purpose')

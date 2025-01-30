@@ -8,17 +8,17 @@
     ];
 @endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-200 w-full z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="flex  h-16">
             <!-- Logo -->
-            <div class="flex-shrink-0 flex items-center">
+            <div class="flex-1 flex items-center">
                 <a href="{{ url('/') }}">
                     <img class="h-8 w-auto" src="{{ url($config['icon']) }}" alt="Logo">
                 </a>
             </div>
 
             <!-- Navigation Links -->
-            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8 flex-none">
                 @foreach ($links as $link)
                     <a href="{{ route($link['href']) }}"
                         class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium {{ request()->routeIs($link['href']) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
@@ -28,7 +28,7 @@
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div class="-mr-2 flex items-center sm:hidden flex-none">
                 <button @click="open = !open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span class="sr-only">Open main menu</span>

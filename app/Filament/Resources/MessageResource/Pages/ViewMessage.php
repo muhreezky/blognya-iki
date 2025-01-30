@@ -16,4 +16,13 @@ class ViewMessage extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data) : array
+    {
+        if (!$data['opened']) {
+            $data['opened'] = true;
+            $this->record->update($data);
+        }
+        return $data;
+    }
 }
