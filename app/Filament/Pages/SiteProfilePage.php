@@ -20,6 +20,7 @@ class SiteProfilePage extends Page implements HasForms
 
     protected static string $view = 'filament.pages.site-profile-page';
     protected static ?string $navigationGroup = 'Website';
+    protected static ?int $navigationSort = -1;
 
     public array $data = [];
 
@@ -55,19 +56,15 @@ class SiteProfilePage extends Page implements HasForms
                 ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                     $extension = $file->getClientOriginalExtension();
                     return "favicon.$extension";
-                })
+                }),
         ])->statePath('data');
     }
 
     public function save()
     {
-        // $path = resource_path('metadata.json');
         $state = $this->form->getState();
-        // dd($state);
-        // File::put($path, json_encode($state));
         SiteConfig::save($state);
         Notification::make()->success()->title('Success')
             ->body('Site Configuration Changed')->send();
-        // redirect(request()->url());
     }
 }
